@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добро пожаловать</title>
+    <style>
+        body {
+            background-color: #23282B; /* Черно-серый цвет */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white; /* Цвет текста для сообщения */
+        }
+
+        .welcome-image {
+            width: 500px; /* Задайте желаемую ширину картинки */
+            max-width: 80%; /* Максимальная ширина */
+            height: auto;
+            margin-bottom: 20px; /* Отступ между картинкой и текстом */
+        }
+
+        .welcome-image img {
+            width: 100%; /* Картинка занимает всю ширину контейнера */
+            height: auto;
+            display: block;
+            border-radius: 10px; /* Закругленные углы для картинки */
+        }
+
+        .welcome-message {
+            font-size: 1.2em; /* Размер текста */
+            text-align: center; /* Выравнивание текста по центру */
+            margin-bottom: 20px; /* Добавим отступ снизу сообщения */
+        }
+
+        .home-button {
+            background-color: #b81414; /* Красный цвет кнопки */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="welcome-image">
+    <img src="{{ url_for('static', filename='ShadowF.png') }}" alt="Добро пожаловать!">
+</div>
+
+<div class="welcome-message">
+    <h1>Добро пожаловать в библиотеку комиксов и манги!</h1>
+    <p>Здесь вы можете управлять своей коллекцией.</p>
+</div>
+
+<a href="{{ url_for('home') }}" class="home-button">Перейти на главную страницу</a>
+
+</body>
+</html>

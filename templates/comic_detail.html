@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ comic.title }}{% endblock %}
+
+{% block main_content %}
+    <h2>{{ comic.title }}</h2>
+    <img src="{{ url_for('static', filename='covers/' + comic.cover_image) }}" alt="{{ comic.title }}" width="200">
+    <p><strong>Автор:</strong> {{ comic.author }}</p>
+    <p><strong>Художник:</strong> {{ comic.artist }}</p>
+    <p><strong>Издательство:</strong> {{ comic.publisher }}</p>
+    <p><strong>Том:</strong> {{ comic.volume }}</p>
+    <p><strong>Год издания:</strong> {{ comic.year_published }}</p>
+    <p><strong>Жанр:</strong> {{ comic.genre }}</p>
+    <p><strong>Описание:</strong> {{ comic.short_description }}</p>
+    <p><strong>Статус:</strong> {{ comic.status }}</p>
+
+    <h3>Оценка:</h3>
+    {% if average_rating %}
+        <p>Средняя оценка: {{ average_rating }} / 5</p>
+    {% else %}
+        <p>Нет оценок</p>
+    {% endif %}
+
+    {% if current_user.is_authenticated %}
+        <form action="{{ url_for('add_rating', comic_id=comic.id) }}" method="POST">
+            <label for="rating">Поставить оценку (1-5):</label>
+            <select name="rating" id="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <button type="submit" class="button">Оценить</button>
+        </form>
+
+        <h3>Заметка:</h3>
+        {% if note %}
+            <p>Ваша заметка: {{ note.note }}</p>
+        {% endif %}
+        <form action="{{ url_for('add_note', comic_id=comic.id) }}" method="POST">
+            <label for="note">Добавить/изменить заметку:</label>
+            <textarea name="note" id="note">{{ note.note if note }}</textarea>
+            <button type="submit" class="button">Сохранить заметку</button>
+        </form>
+    {% else %}
+        <p>Войдите, чтобы оценить и оставить заметку</p>
+    {% endif %}
+
+    <a href="{{ url_for('home') }}" class="button">Назад к списку</a>
+{% endblock %}

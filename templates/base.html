@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ghouls Library{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="logo-and-title">
+            <a href="{{ url_for('home') }}"> <!-- Добавил ссылку на главную страницу -->
+                <img src="{{ url_for('static', filename='ShadowFiend.png') }}" alt="Shadow Fiend - Library Logo" class="logo-image">
+            </a>
+            <h1>Ghouls Library</h1>
+        </div>
+        <div class="auth-buttons">
+            {% if current_user.is_authenticated %}
+                <span>Привет, {{ current_user.username }}!</span>
+                <a href="{{ url_for('logout') }}" class="button">Выйти</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="button">Войти</a>
+                <a href="{{ url_for('register') }}" class="button">Зарегистрироваться</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <main class="container">
+        {% block main_content %}{% endblock %}
+    </main>
+    <footer>
+        &copy; 2025 Ваша библиотека комиксов и манги <img src="{{ url_for('static', filename='Ardor1.png') }}" alt="Ghoul" class="footer-image">
+    </footer>
+</body>
+</html>

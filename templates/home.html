@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Ghouls Library{% endblock %}
+
+{% block main_content %}
+    <form class="search-bar" action="{{ url_for('home') }}" method="GET">
+        <input type="text" placeholder="Поиск комиксов и манги..." name="search" value="{{ search_query }}">
+        <button type="submit">
+            <img src="{{ url_for('static', filename='Requem.png') }}" alt="Поиск">
+        </button>
+    </form>
+
+    <div class="button-container">
+        <a href="{{ url_for('add_comic') }}" class="button">Добавить комикс/мангу</a>
+
+        <div class="dropdown">
+            <button class="button">Сортировка</button>
+            <div class="dropdown-content">
+                <a href="{{ url_for('home', search=search_query, sort='title', status=status) }}">По названию</a>
+                <a href="{{ url_for('home', search=search_query, sort='author', status=status) }}">По автору</a>
+                <a href="{{ url_for('home', search=search_query, sort='year', status=status) }}">По году издания</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="button">Статус</button>
+            <div class="dropdown-content">
+                <a href="{{ url_for('home', search=search_query, sort=sort_by, status='In Stock') }}">В наличии</a>
+                <a href="{{ url_for('home', search=search_query, sort=sort_by, status='Loaned Out') }}">Выдано</a>
+                <a href="{{ url_for('home', search=search_query, sort=sort_by, status='') }}">Все</a>
+            </div>
+        </div>
+
+        <a href="{{ url_for('user_notes') }}" class="button">Заметки/Оценки</a>
+    </div>
+
+    <h2>Comics/Manga</h2>
+    <div class="comic-list">
+        {% for comic in comics %}
+            <div class="comic-item">
+                <a href="{{ url_for('comic_detail', comic_id=comic.id) }}">
+                    {% if comic.cover_image %}
+                        <img src="{{ url_for('static', filename='covers/' + comic.cover_image) }}" alt="{{ comic.title }}" width="100">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='covers/default.png') }}" alt="{{ comic.title }}" width="100">
+                    {% endif %}
+                    <h3>{{ comic.title }}</h3>
+                    <p>Author: {{ comic.author }}</p>
+                    <p>Status: {{ comic.status }}</p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

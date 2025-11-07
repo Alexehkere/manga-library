@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои заметки и оценки{% endblock %}
+
+{% block main_content %}
+    <div class="user-notes-container">
+        <h2>Мои заметки и оценки</h2>
+
+        <h3>Оценки:</h3>
+        {% if ratings %}
+            <ul>
+                {% for rating in ratings %}
+                    <li class="note-box-rounded">  <!-- Добавляем рамку -->
+                        <strong>{{ rating.comic_title }}</strong>: {{ rating.rating }} / 5
+                    </li>
+                    <br>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>У вас пока нет оценок</p>
+        {% endif %}
+
+        <h3>Заметки:</h3>
+        {% if notes %}
+            <ul>
+                {% for note in notes %}
+                    <li class="note-box-rounded">  <!-- Добавляем рамку -->
+                        <strong>{{ note.comic.title }}</strong>: {{ note.note }}
+                    </li>
+                    <br>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>У вас пока нет заметок</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block title %}Add Comic/Manga{% endblock %}
+
+{% block main_content %}
+    <h2>Add Comic/Manga</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        {{ render_field(form.title) }}
+        {{ render_field(form.author) }}
+        {{ render_field(form.artist) }}
+        {{ render_field(form.publisher) }}
+        {{ render_field(form.volume) }}
+        {{ render_field(form.year_published) }}
+        {{ render_field(form.genre) }}
+        {{ render_field(form.short_description) }}
+        {{ render_field(form.cover_image) }}
+        {{ render_field(form.status) }}
+        <button type="submit" class="button">Add Comic/Manga</button>
+    </form>
+{% endblock %}
